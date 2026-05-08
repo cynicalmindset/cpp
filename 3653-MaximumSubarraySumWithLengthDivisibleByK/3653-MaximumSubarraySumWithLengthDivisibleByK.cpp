@@ -1,0 +1,34 @@
+// Last updated: 08/05/2026, 10:44:04
+class Solution {
+public:
+    long long maxSubarraySum(vector<int>& nums, int k) {
+
+        int n = nums.size();
+        vector<long long> prefSum(n);
+
+        prefSum[0] = nums[0];
+        for (int i = 1; i < n; i++) {
+            prefSum[i] = prefSum[i - 1] + nums[i];
+        }
+
+        long long result = LLONG_MIN;
+
+        for (int start = 0; start < k; start++) {
+            long long currSum = 0;
+            int i = start;
+
+            while (i < n && i + k - 1 < n) {
+                int j = i + k - 1;
+
+                long long subSum = (i > 0) ? prefSum[j] - prefSum[i - 1] : prefSum[j];
+
+                currSum = max(subSum, currSum + subSum);
+                result = max(result, currSum);
+
+                i += k;
+            }   // ← closes while
+        }       // ← closes for
+
+        return result;
+    } // closes function
+}; // closes class
