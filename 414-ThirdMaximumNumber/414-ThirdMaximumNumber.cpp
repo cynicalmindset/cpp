@@ -1,0 +1,22 @@
+// Last updated: 08/05/2026, 10:46:03
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        //vector<int> set;
+        int count = 1;
+        int last = nums[nums.size() -1];
+        for(int i =nums.size()-2;i>=0;i--){
+            if(nums[i]!=last){
+                count++;
+                last = nums[i];
+            }
+            if(count==3){
+                return nums[i];
+            }
+        }
+        return nums[nums.size()-1];
+
+        
+    }
+};
